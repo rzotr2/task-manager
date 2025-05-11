@@ -1,0 +1,34 @@
+<svg
+        width="64"
+        height="64"
+        viewBox="0 0 64 64"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+>
+    <!-- Коло (P) -->
+    <circle
+            cx="32"
+            cy="32"
+            r="28"
+            stroke="#111827"
+            stroke-width="4"
+    />
+    <!-- Галочка -->
+    <path
+            d="M22 34 L30 42 L44 26"
+            stroke="#111827"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+    />
+    <!-- Вертикальна риска P -->
+    <line
+            x1="22"
+            y1="18"
+            x2="22"
+            y2="46"
+            stroke="#111827"
+            stroke-width="4"
+            stroke-linecap="round"
+    />
+</svg>
