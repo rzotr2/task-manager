@@ -1,29 +1,68 @@
 import TaskItem from "./TaskItem.tsx";
-import {FaChevronDown, FaChevronUp} from "react-icons/fa";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useState } from "react";
+import { useDroppable } from "@dnd-kit/core";
+import { SortableContext } from "@dnd-kit/sortable";
+import type { TaskItemModel } from "../models/task.ts";
 
-export default function TaskListTodo() {
+type TaskListTodoProps = {
+    tasks: TaskItemModel[];
+    search: string;
+    activeTaskId: string;
+}
+
+export default function TaskListTodo({tasks, search, activeTaskId}: TaskListTodoProps) {
+    const {isOver, setNodeRef} = useDroppable({
+        id: 'droppable-todo',
+    });
+    const style = {
+        color: isOver ? 'green' : undefined,
+    };
+
     const [isOpened, setIsOpened] = useState(false);
     const toggleClass = () => {
         setIsOpened(!isOpened);
-    }
+    };
+
+    const todoTasks = tasks.filter(task =>
+        task.title.toLowerCase().includes(search.toLowerCase()) ||
+        task.description?.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
         <>
-            <div onClick={toggleClass} className="min-w-30% w-full">
-                <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-                    <span className="bg-transparent px-3 py-1 flex justify-between items-center text-lg">
+            <SortableContext items={todoTasks.map(task => task.id as string)}>
+                <div className="min-w-30% w-full rounded-xl hover:shadow-lg transition cursor-pointer md:cursor-default"
+                     ref={setNodeRef} style={style}
+                >
+                    <div className="bg-white border border-gray-200 rounded-lg shadow-sm ">
+                    <span onClick={toggleClass}
+                          className="bg-transparent px-3 py-1 flex justify-between items-center text-lg">
                         To do
                         {isOpened ? (
                             <FaChevronUp className="md:hidden"/>
-                        ): <FaChevronDown className="md:hidden"/>}
+                        ) : <FaChevronDown className="md:hidden"/>}
                     </span>
-                    <ul className={isOpened ? "max-h-96 transition-all duration-500 overflow-hidden md:p-1"
-                        : "overflow-hidden max-h-0 md:max-h-full transition-all duration-300 md:p-1"}>
-                        <TaskItem className="px-2 py-1 transition" status="todo" id={""} title={""} description={""} />
-                    </ul>
+                        {todoTasks.length ? (
+                            <ul className={isOpened ?
+                                "max-h-96 md:max-h-full px-2 overflow-scroll md:overflow-visible transition-all duration-500 md:p-1 flex flex-col gap-2 last:mb-1"
+                                : "max-h-0 md:max-h-full overflow-hidden md:overflow-visible transition-all duration-300 md:p-1 flex flex-col gap-2"}>
+                                {todoTasks.map(task =>
+                                    (activeTaskId === task.id) ? null : (
+                                        <TaskItem className="px-3 py-3 transition"
+                                                  task={task}
+                                                  key={task.id}
+                                                  searchInput={search}
+                                        />
+                                    ))
+                                }
+                            </ul>
+                        ) : (
+                            <p className="p-4 text-center">There is nothing to do!</p>
+                        )}
+                    </div>
                 </div>
-            </div>
+            </SortableContext>
         </>
     )
 }
