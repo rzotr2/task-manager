@@ -17,14 +17,14 @@ export default function PageHeader() {
                                 cy="32"
                                 r="28"
                                 stroke="#111827"
-                                stroke-width="4"
+                                strokeWidth="4"
                             />
                             <path
                                 d="M22 34 L30 42 L44 26"
                                 stroke="#111827"
-                                stroke-width="4"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="4"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             />
                             <line
                                 x1="22"
@@ -32,8 +32,8 @@ export default function PageHeader() {
                                 x2="22"
                                 y2="46"
                                 stroke="#111827"
-                                stroke-width="4"
-                                stroke-linecap="round"
+                                strokeWidth="4"
+                                strokeLinecap="round"
                             />
                         </svg>
                     </a>

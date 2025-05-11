@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# 📝 Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Task Manager with drag & drop, search, filtering, responsive design, and true task reordering within columns.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Demo
 
-## Expanding the ESLint configuration
+[Live Demo](https://your-deploy-link.vercel.app/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📸 Screenshots
+
+![Task Manager Screenshot](./public/screenshot.png)
+
+---
+
+## ⚡️ Features
+
+- **Drag & Drop** between columns and within columns (true reorder, Trello-style)
+- **Task sorting** in each column
+- **Search and filtering** by title and description
+- **Responsive design** (desktop, tablet, mobile)
+- **CRUD tasks** (create, edit, delete)
+- **Optimistic updates** (tasks move instantly, even if API is slow)
+- **Highlighting search matches**
+- **Modern UI** (React, TailwindCSS)
+- **TypeScript** — full type safety
+- **Zustand** — global state management
+- **Mock API**
+
+---
+
+## 🛠️ Stack
+
+- **React 19**
+- **TypeScript**
+- **Zustand** (state management)
+- **dnd-kit** (drag & drop, sortable)
+- **TailwindCSS**
+- **Axios**
+- **Vite**
+- **MockAPI**
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/rzotr2/task-manager.git
+cd task-manager
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Configuration
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- **API URL:**  
+  Set in `src/hooks/service.ts`
+  ```ts
+  export const URL = "https://your-mockapi-url.com/tasks";
+  ```
+- **.env** (if needed):
+  ```
+  VITE_API_URL=https://your-mockapi-url.com/tasks
+  ```
+
+---
+
