@@ -4,7 +4,7 @@ export default function PageHeader() {
             <div
                 className="px-10 py-5 flex justify-between bg-white shadow-md text-gray-900 text-xl font-bold items-center">
                 <div className="flex items-center gap-5">
-                    <a href="#">
+                    <a href="javascript:window.location.href=window.location.href">
                         <svg
                             width="40"
                             height="40"
@@ -39,7 +39,7 @@ export default function PageHeader() {
                     </a>
                     <span className="hidden sm:block">Task manager</span>
                 </div>
-                <a href="#" className="flex gap-3 hover:underline hover:scale-110 transition-transform duration-300">
+                <a href="https://github.com/rzotr2/task-manager" className="flex gap-3 hover:underline hover:scale-110 transition-transform duration-300">
                     <svg height="32" aria-hidden="true" viewBox="0 0 24 24" version="1.1" width="32"
                          data-view-component="true" className="hidden sm:block">
                         <path
