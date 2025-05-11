@@ -6,7 +6,7 @@ A modern Task Manager with drag & drop, search, filtering, responsive design, an
 
 ## 🚀 Demo
 
-[Live Demo](https://your-deploy-link.vercel.app/)
+[Live Demo](https://rzotr2.github.io/task-manager/)
 
 ---
 
@@ -61,11 +61,11 @@ npm run dev
 - **API URL:**  
   Set in `src/hooks/service.ts`
   ```ts
-  export const URL = "https://your-mockapi-url.com/tasks";
+  export const URL = "https://mockapi.io/projects/681f04bec1c291fa6635bbfd";
   ```
 - **.env** (if needed):
   ```
-  VITE_API_URL=https://your-mockapi-url.com/tasks
+  VITE_API_URL=https://mockapi.io/projects/681f04bec1c291fa6635bbfd
   ```
 
 ---
