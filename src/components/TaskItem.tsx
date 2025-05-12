@@ -13,10 +13,31 @@ import { useSortable } from "@dnd-kit/sortable";
 
 type TaskItemProps = {
     task: TaskItemModel,
-    searchInput: string
+    searchInput: string,
+    isMobile: boolean
 } & React.HTMLAttributes<HTMLLIElement>;
 
-export default function TaskItem({task, className, searchInput, ...rest}: TaskItemProps) {
+// Функція для підсвічування підрядка
+function highlightMatch(text: string, search: string) {
+    if (!search) return text;
+    const lowerText = text.toLowerCase();
+    const lowerSearch = search.toLowerCase();
+    const matchIndex = lowerText.indexOf(lowerSearch);
+
+    if (matchIndex === -1) return text;
+
+    return (
+        <>
+            {text.slice(0, matchIndex)}
+            <span className="bg-yellow-200 text-yellow-900">
+                {text.slice(matchIndex, matchIndex + search.length)}
+            </span>
+            {text.slice(matchIndex + search.length)}
+        </>
+    );
+}
+
+export default function TaskItem({task, className, searchInput, isMobile, ...rest}: TaskItemProps) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id: `${task.id}`,
     });
@@ -63,62 +84,52 @@ export default function TaskItem({task, className, searchInput, ...rest}: TaskIt
     }
 
     return (
-        <>
-            <li {...rest} className={computedClass + (className || "")}
-                ref={setNodeRef} style={style}
-            >
-                <div>
+        <li {...rest} className={computedClass + (className || "")}
+            ref={setNodeRef} style={style}
+        >
+            <div>
+                {!isMobile && (
                     <div className="flex justify-center -mt-2 w-full cursor-grab" {...listeners} {...attributes}>
-                        <MdOutlineDragHandle className="text-gray-400" />
+                        <MdOutlineDragHandle className="text-gray-400"/>
                     </div>
-                    <div className="flex justify-between pb-2">
+                )}
+                <div className="flex justify-between pb-2">
+                    <div>
+                        {highlightMatch(task.title, searchInput)}
+                    </div>
+                    <div className="flex gap-1">
+                        <a href="#">
+                            <TaskEditDialog task={task}>
+                                <BiSolidEdit className="text-2xl text-blue-500 hover:text-blue-700
+                                hover:scale-110 hover:bg-gray-200 rounded"/>
+                            </TaskEditDialog>
+                        </a>
+                        <a href="#">
+                            <MdDeleteForever onClick={handleDelete}
+                                             className="text-2xl text-red-500 hover:text-red-700
+                                hover:scale-110 hover:bg-gray-200 rounded"/>
+                        </a>
+                    </div>
+                </div>
+                <div className="flex items-center justify-between">
+                    {task.description ? (
                         <div>
-                            {task.title.split("").map((char, i) => (
-                                searchInput.includes(char.toLowerCase())
-                                    ? char !== " " ?
-                                        <span className="bg-yellow-200 text-yellow-900" key={i}>{char}</span> : " "
-                                    : char
-                            ))}
+                            {highlightMatch(task.description, searchInput)}
                         </div>
-                        <div className="flex gap-1">
-                            <a href="#">
-                                <TaskEditDialog task={task}>
-                                    <BiSolidEdit className="text-2xl text-blue-500 hover:text-blue-700
-                                hover:scale-110 hover:bg-gray-200 rounded"/>
-                                </TaskEditDialog>
-                            </a>
-                            <a href="#">
-                                <MdDeleteForever onClick={handleDelete}
-                                                 className="text-2xl text-red-500 hover:text-red-700
-                                hover:scale-110 hover:bg-gray-200 rounded"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                        {task.description ? (
-                            <div>
-                                {task.description.split("").map((char: string, i: number) => (
-                                    searchInput.includes(char.toLowerCase())
-                                        ? char !== " " ?
-                                            <span className="bg-yellow-200 text-yellow-900" key={i}>{char}</span> : " "
-                                        : char
-                                ))}
-                            </div>
-                        ) : <span className="italic text-sm">No description added yet.</span>}
-                        <button className="cursor-pointer" onClick={handleStatusChange}>
-                            {task.status === "todo" && (
-                                <span className="border-1 text-green-500 rounded-sm flex items-center
+                    ) : <span className="italic text-sm">No description added yet.</span>}
+                    <button className="cursor-pointer" onClick={handleStatusChange}>
+                        {task.status === "todo" && (
+                            <span className="border-1 text-green-500 rounded-sm flex items-center
                                             text-[14px] px-1 gap-0.5 hover:bg-green-400 hover:text-white">
                                 Start
                                 <BsFillRocketTakeoffFill className="text-md"/>
                             </span>
-                            )}
-                            {task.status === "process" && <FaRegSquare className="text-2xl"/>}
-                            {task.status === "completed" && <FaRegSquareCheck className="text-2xl text-green-700"/>}
-                        </button>
-                    </div>
+                        )}
+                        {task.status === "process" && <FaRegSquare className="text-2xl"/>}
+                        {task.status === "completed" && <FaRegSquareCheck className="text-2xl text-green-700"/>}
+                    </button>
                 </div>
-            </li>
-        </>
-    )
+            </div>
+        </li>
+    );
 }

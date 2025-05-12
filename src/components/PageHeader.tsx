@@ -2,9 +2,9 @@ export default function PageHeader() {
     return (
         <>
             <div
-                className="px-10 py-5 flex justify-between bg-white shadow-md text-gray-900 text-xl font-bold items-center">
+                className="px-4 py-2 md:px-10 md:py-5 flex justify-between bg-white shadow-md text-gray-900 text-xl font-bold items-center">
                 <div className="flex items-center gap-5">
-                    <a href="javascript:window.location.href=window.location.href">
+                    <a href="#">
                         <svg
                             width="40"
                             height="40"

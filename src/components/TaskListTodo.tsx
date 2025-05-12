@@ -6,12 +6,13 @@ import { SortableContext } from "@dnd-kit/sortable";
 import type { TaskItemModel } from "../models/task.ts";
 
 type TaskListTodoProps = {
-    tasks: TaskItemModel[];
-    search: string;
-    activeTaskId: string;
+    tasks: TaskItemModel[],
+    search: string,
+    activeTaskId: string,
+    isMobile: boolean
 }
 
-export default function TaskListTodo({tasks, search, activeTaskId}: TaskListTodoProps) {
+export default function TaskListTodo({tasks, search, activeTaskId, isMobile}: TaskListTodoProps) {
     const {isOver, setNodeRef} = useDroppable({
         id: 'droppable-todo',
     });
@@ -45,14 +46,15 @@ export default function TaskListTodo({tasks, search, activeTaskId}: TaskListTodo
                     </span>
                         {todoTasks.length ? (
                             <ul className={isOpened ?
-                                "max-h-96 md:max-h-full px-2 overflow-scroll md:overflow-visible transition-all duration-500 md:p-1 flex flex-col gap-2 last:mb-1"
-                                : "max-h-0 md:max-h-full overflow-hidden md:overflow-visible transition-all duration-300 md:p-1 flex flex-col gap-2"}>
+                                "max-h-96 md:max-h-[70vh] px-1 md:px-2 [scrollbar-width:thin]  overflow-y-auto transition-all duration-500 md:p-1 flex flex-col gap-2 last:mb-1"
+                                : "max-h-0 md:max-h-[70vh] md:px-2 [scrollbar-width:thin] overflow-hidden md:overflow-y-auto transition-all duration-300 md:p-1 flex flex-col gap-2"}>
                                 {todoTasks.map(task =>
                                     (activeTaskId === task.id) ? null : (
                                         <TaskItem className="px-3 py-3 transition"
                                                   task={task}
                                                   key={task.id}
                                                   searchInput={search}
+                                                  isMobile={isMobile}
                                         />
                                     ))
                                 }
