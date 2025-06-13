@@ -46,8 +46,8 @@ export default function TaskListTodo({tasks, search, activeTaskId, isMobile}: Ta
                     </span>
                         {todoTasks.length ? (
                             <ul className={isOpened ?
-                                "max-h-96 md:max-h-[70vh] px-1 md:px-2 [scrollbar-width:thin]  overflow-y-auto transition-all duration-500 md:p-1 flex flex-col gap-2 last:mb-1"
-                                : "max-h-0 md:max-h-[70vh] md:px-2 [scrollbar-width:thin] overflow-hidden md:overflow-y-auto transition-all duration-300 md:p-1 flex flex-col gap-2"}>
+                                "max-h-96 md:max-h-[65vh] px-1 md:px-2 [scrollbar-width:thin]  overflow-y-auto transition-all duration-500 md:p-1 flex flex-col gap-2 last:mb-1"
+                                : "max-h-0 md:max-h-[65vh] md:px-2 [scrollbar-width:thin] overflow-hidden md:overflow-y-auto transition-all duration-300 md:p-1 flex flex-col gap-2"}>
                                 {todoTasks.map(task =>
                                     (activeTaskId === task.id) ? null : (
                                         <TaskItem className="px-3 py-3 transition"
